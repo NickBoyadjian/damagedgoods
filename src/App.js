@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import ReactPaginate from 'react-paginate';
-import Page from './components/page';
-import './App.scss';
+import VoronoiTreeMap from './components/voronoiTreeMap';
 import { useSelector, useDispatch } from 'react-redux';
 
+import './App.scss';
+
 function App() {
-  const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const perPage = 1;
+  const [items, setItems] = useState(null);
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart);
 
@@ -17,26 +15,18 @@ function App() {
       method: 'get',
       url: 'http://localhost:1337/items'
     }).then(res => {
-      setData(res.data)
+      setItems(res.data)
     });
   }, []);
 
-
-  const handlePageClick = (e) => {
-    const selectedPage = e.selected;
-    setCurrentPage(selectedPage);
-  };
-
-  if (!data) {
+  if (!items) {
     return <div>loading</div>
   }
 
   return (
     <div className="App">
-
-      <Page items={data} />
-
-      <button
+      <VoronoiTreeMap items={items} />
+      {/* <button
         className="button is-link"
         onClick={() => {
           dispatch({ type: "ADD_TO_CART", item: data[0] })
@@ -46,20 +36,7 @@ function App() {
       </button>
       <hr />
       {cart.length}
-      {cart.map(x => <h1>{x.item.name}</h1>)}
-
-      {/* <ReactPaginate
-        previousLabel={"prev"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={data.length / perPage}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"} /> */}
+      {cart.map(x => <h1>{x.item.name}</h1>)} */}
     </div>
   );
 }
