@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { select, range, hierarchy, nest, sum, csv, extent, polygonCentroid, max, min } from 'd3';
+import { select, hierarchy, nest, sum, csv, extent, polygonCentroid, max, min } from 'd3';
 import { voronoiTreemap } from 'd3-voronoi-treemap';
 import seedrandom from 'seedrandom';
-import csvdata from './data.csv';
-import randomHexColor from 'random-hex-color';
 import useResizeObserver from '../../customHooks/useResizeObserver';
-import { getDataNested, getShape, appendImages } from './helpers';
+import { getDataNested, appendImages } from './helpers';
 import './style.scss';
 
 export default function Index({ items }) {
   const svgRef = useRef();
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
-  const [csvData, setCsvData] = useState([]);
+  const [active, setActive] = useState(); // gets set anytime the user hovers over an item
 
 
 
@@ -64,8 +62,8 @@ export default function Index({ items }) {
         .map((d, i) => Object.assign({}, d, { id: i }));
 
 
-
-      const selection = voronoi.selectAll('.node')
+      // append the actual nodes into the voronoi graph
+      voronoi.selectAll('.node')
         .data(nodes)
         .join('g')
         .classed('node', true)
@@ -80,7 +78,11 @@ export default function Index({ items }) {
         .attr('pointer-events', d => d.height === 0 ? 'fill' : 'none')
         .attr("stroke-width", d => 7 - d.depth * 2.8)
 
-      appendImages(voronoi.selectAll('.node'), items)
+      const handleMouseOver = i => voronoi.selectAll('image').attr('opacity', (d, j) => i === j ? 1 : 0.5)
+
+      const handleMouseLeave = () => voronoi.selectAll('image').attr('opacity', 1);
+
+      appendImages(voronoi.selectAll('.node'), items, handleMouseOver, handleMouseLeave);
     }
 
     mdo();

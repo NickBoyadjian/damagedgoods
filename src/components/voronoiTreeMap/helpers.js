@@ -19,7 +19,7 @@ export function getShape() {
   })
 }
 
-export function appendImages(nodes, items) {
+export function appendImages(nodes, items, handleMouseOver, handleMouseLeave) {
   const image = nodes.filter(d => d.height === 0)
   const imageGroup = image.append('g').classed('image', true);
   const imageUrl = '';
@@ -56,12 +56,8 @@ export function appendImages(nodes, items) {
           .attr('width', width)
           .attr('height', height)
           .attr('visibility', 'visible')
-          .on('mouseenter', function (d) {
-            select(this).attr('opacity', 0.5)
-          })
-          .on('mouseleave', function (d) {
-            select(this).attr('opacity', 1)
-          });
+          .on('mouseenter', _ => handleMouseOver(i))
+          .on('mouseleave', _ => handleMouseLeave());
 
       }
       image.src = `http://localhost:1337${items[i].front_image.formats.large.url}`
