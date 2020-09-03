@@ -1,4 +1,4 @@
-import { nest, range, sum, select } from 'd3';
+import { nest, range, select } from 'd3';
 
 export function getDataNested(data) {
   let freedom_nest = nest()
@@ -22,7 +22,6 @@ export function getShape() {
 export function appendImages(nodes, items, handleMouseOver, handleMouseLeave, handleClick) {
   const image = nodes.filter(d => d.height === 0)
   const imageGroup = image.append('g').classed('image', true);
-  const imageUrl = '';
 
   imageGroup
     .append('clipPath')
@@ -50,7 +49,7 @@ export function appendImages(nodes, items, handleMouseOver, handleMouseLeave, ha
           d.polyProps
         );
 
-        const imageSelect = select(this)
+        select(this)
           .attr('x', x)
           .attr('y', y)
           .attr('width', width)

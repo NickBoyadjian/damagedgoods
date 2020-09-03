@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { select, hierarchy, nest, sum, csv, extent, polygonCentroid, max, min } from 'd3';
+import { select, hierarchy, extent, polygonCentroid, max, min } from 'd3';
 import { voronoiTreemap } from 'd3-voronoi-treemap';
 import seedrandom from 'seedrandom';
 import useResizeObserver from '../../customHooks/useResizeObserver';
@@ -12,9 +12,6 @@ export default function Index({ items }) {
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
   const history = useHistory();
-  const [active, setActive] = useState(); // gets set anytime the user hovers over an item
-
-
 
   useEffect(() => {
     async function mdo() {
@@ -26,10 +23,8 @@ export default function Index({ items }) {
       const svg = select(svgRef.current);
       svg.selectAll('*').remove(); // we do this so on rerenders everything is cleared
       const voronoi = svg.append('g').classed('voronoi', true);
-      const labels = svg.append('g');
       const clipPath = [[0, 0], [width, 0], [width, height], [0, height]];
       let voronoiTreeMap = voronoiTreemap().prng(new seedrandom('notice me senpai')).clip(clipPath);
-      let data = [];
 
 
       // Format the data to be grouped by region and country
@@ -91,7 +86,7 @@ export default function Index({ items }) {
 
     mdo();
 
-  }, [svgRef, wrapperRef, dimensions, items])
+  }, [svgRef, wrapperRef, dimensions, items, history])
 
 
   return (

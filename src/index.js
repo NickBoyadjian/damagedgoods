@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './reducers';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client'; 
+import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'; 
 import App from './App';
 
 // Redux store for the shopping cart

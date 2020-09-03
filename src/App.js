@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import ItemsPage from './pages/items';
 import ItemPage from './pages/item';
+import Navbar from './components/navbar';
 import './App.scss';
 
 function App() {
-  const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart);
+  // const dispatch = useDispatch();
+  // const cart = useSelector(state => state.cart);
 
 
 
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/">
             <p>Home</p> 
