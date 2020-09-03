@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import VoronoiTreeMap from './components/voronoiTreeMap';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
+import ItemsPage from './pages/items';
 import './App.scss';
 
 function App() {
@@ -19,24 +25,23 @@ function App() {
     });
   }, []);
 
-  if (!items) {
-    return <div>loading</div>
-  }
 
   return (
     <div className="App">
-      <VoronoiTreeMap items={items} />
-      {/* <button
-        className="button is-link"
-        onClick={() => {
-          dispatch({ type: "ADD_TO_CART", item: data[0] })
-          console.log(cart)
-        }}>
-        Add to Cart
-      </button>
-      <hr />
-      {cart.length}
-      {cart.map(x => <h1>{x.item.name}</h1>)} */}
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <p>Home</p> 
+          </Route>
+          <Route path="/items">
+            <ItemsPage items={items} /> 
+          </Route>
+          <Route> 
+                
+          </Route>
+        </Switch>
+    </Router> 
+
     </div>
   );
 }
