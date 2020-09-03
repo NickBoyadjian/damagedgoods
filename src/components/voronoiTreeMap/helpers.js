@@ -3,7 +3,7 @@ import { nest, range, sum, select } from 'd3';
 export function getDataNested(data) {
   let freedom_nest = nest()
     .key(d => d.item_type)
-    .key(d => d.name)
+    .key(d => d.id)
     .rollup(v => v.length)
     .entries(data);
 
@@ -19,7 +19,7 @@ export function getShape() {
   })
 }
 
-export function appendImages(nodes, items, handleMouseOver, handleMouseLeave) {
+export function appendImages(nodes, items, handleMouseOver, handleMouseLeave, handleClick) {
   const image = nodes.filter(d => d.height === 0)
   const imageGroup = image.append('g').classed('image', true);
   const imageUrl = '';
@@ -56,9 +56,9 @@ export function appendImages(nodes, items, handleMouseOver, handleMouseLeave) {
           .attr('width', width)
           .attr('height', height)
           .attr('visibility', 'visible')
+          .on('click', d => handleClick(d)) 
           .on('mouseenter', _ => handleMouseOver(i))
           .on('mouseleave', _ => handleMouseLeave());
-
       }
       image.src = `http://localhost:1337${items[i].front_image.formats.large.url}`
     })

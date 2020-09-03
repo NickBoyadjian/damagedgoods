@@ -1,14 +1,29 @@
 import React from 'react';
+import { useQuery, gql } from '@apollo/client';
 import VoronoiTreeMap from '../../components/voronoiTreeMap';
 
-export default function Index({items}) {
+const GetAllItems = gql`
+  query GetAllItems {
+    items {
+      id
+      name
+      front_image { formats }
+    }
+  }
+`;
 
-  if (!items)
+export default function Index() {
+ const { loading, error, data } = useQuery(GetAllItems); 
+
+  if (loading)
     return <>Loading...</>
- 
+
+  if (error)
+    return <>Error fetching data</>
+
   return (
     <>
-      <VoronoiTreeMap items={items} />
+      <VoronoiTreeMap items={data.items} />
     </>
   )
 }

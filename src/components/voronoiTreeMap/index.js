@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { select, hierarchy, nest, sum, csv, extent, polygonCentroid, max, min } from 'd3';
 import { voronoiTreemap } from 'd3-voronoi-treemap';
 import seedrandom from 'seedrandom';
@@ -10,6 +11,7 @@ export default function Index({ items }) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
+  const history = useHistory();
   const [active, setActive] = useState(); // gets set anytime the user hovers over an item
 
 
@@ -82,7 +84,9 @@ export default function Index({ items }) {
 
       const handleMouseLeave = () => voronoi.selectAll('image').attr('opacity', 1);
 
-      appendImages(voronoi.selectAll('.node'), items, handleMouseOver, handleMouseLeave);
+      const handleClick = data => history.push(`/items/${data.data.key}`);
+
+      appendImages(voronoi.selectAll('.node'), items, handleMouseOver, handleMouseLeave, handleClick);
     }
 
     mdo();
