@@ -11,7 +11,7 @@ const store = createStore(rootReducer);
 
 // Sets up the connection to out graphql server
 const client = new ApolloClient({
-  uri: 'http://localhost:1337/graphql',
+  uri: 'https://damaged-goods.herokuapp.com/graphql',
   cache: new InMemoryCache()
 });
 

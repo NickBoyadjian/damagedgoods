@@ -8,6 +8,7 @@ import {
 
 import ItemsPage from './pages/items';
 import ItemPage from './pages/item';
+import LandingPage from './pages/landingpage';
 import Navbar from './components/navbar';
 import './App.scss';
 
@@ -23,7 +24,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <p>Home</p> 
+            <LandingPage />
           </Route>
           <Route path="/items" components={<ItemsPage />}>
             <ItemsPage /> 

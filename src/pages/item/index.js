@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import AliceCarousel from 'react-alice-carousel';
 import './style.scss'
 
 const url = 'http://localhost:1337'
@@ -36,22 +35,13 @@ export default function Index() {
       <div className='container item-container'>
         <div className='columns'>
           <div className='column'>
-            <img src={"http://localhost:1337" + data.item.front_image.formats.large.url} />
+            <img src={"https://damaged-goods.herokuapp.com" + data.item.front_image.formats.large.url} />
           </div>
           <div className='column'>
             <h1 className='title'>{data.item.name}</h1>
             <h2 className='title-2'>${data.item.cost}</h2>
             <p>{data.item.description}</p>
           </div>
-        </div>
-        
-        <div className='image-gallery'>
-          <AliceCarousel mouseTrackingEnabled autoplay>
-            <img src={"http://localhost:1337" + data.item.front_image.formats.large.url} onDragStart={handleOnDragStart} />
-            <img src={"http://localhost:1337" + data.item.front_image.formats.large.url} onDragStart={handleOnDragStart}   />
-            <img src={"http://localhost:1337" + data.item.front_image.formats.large.url} onDragStart={handleOnDragStart}   />
- 
-          </AliceCarousel>
         </div>
       </div>)
   } 
