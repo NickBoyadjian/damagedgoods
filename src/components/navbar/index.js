@@ -22,11 +22,15 @@ export default function Index() {
           <div className="navbar-start">
             <Link to="/" className="navbar-item">
               Home
-      </Link>
+            </Link>
 
             <Link to="/items" className="navbar-item">
               Store
-      </Link>
+            </Link>
+
+            <Link to="/about" className="navbar-item">
+              About
+            </Link>
 
 
 
