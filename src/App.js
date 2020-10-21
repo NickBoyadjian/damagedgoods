@@ -9,7 +9,8 @@ import {
 import ItemsPage from './pages/items';
 import ItemPage from './pages/item';
 import LandingPage from './pages/landingpage';
-import AboutPage from './pages/about'
+import AboutPage from './pages/about';
+import Error from './pages/error';
 import Navbar from './components/navbar';
 import './App.scss';
 
@@ -27,17 +28,20 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route exact path ="/about" >
+          <Route exact path="/about" >
             <AboutPage />
           </Route>
           <Route path="/items" components={<ItemsPage />}>
-            <ItemsPage /> 
-            <Route path="/items/:id"> 
+            <ItemsPage />
+            <Route path="/items/:id">
               <ItemPage />
             </Route>
           </Route>
+          <Route>
+            <Error />
+          </Route>
         </Switch>
-    </Router> 
+      </Router>
 
     </div>
   );

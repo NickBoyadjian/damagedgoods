@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Index() {
+  const cart = useSelector(state => state.cart);
 
   return (
     <>
@@ -57,9 +59,9 @@ export default function Index() {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <button className="button is-link">
-                  <strong>Shopping Cart</strong>
-                </button>
+                <Link to="cart" className="button is-link">
+                  <strong>Shopping Cart ({cart.length})</strong>
+                </Link>
               </div>
             </div>
           </div>
