@@ -56,15 +56,6 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="buttons">
-                <Link to="cart" className="button is-link">
-                  <strong>Shopping Cart ({cart.length})</strong>
-                </Link>
-              </div>
-            </div>
-          </div>
         </div>
       </nav>
     </>

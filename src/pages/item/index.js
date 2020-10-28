@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import './style.scss'
 
-const url = 'http://localhost:1337'
-
 const GetItem = gql`
   query GetItem($id: ID!) {
-    item(id: $id) {
-      id
-      name
-      description
-      cost
-      front_image { formats }
+    nodes(ids: [$id]) {
+      ...on Product {
+        id
+        title
+        description
+      
+      }
     }
   }
 `;
@@ -20,29 +19,27 @@ const GetItem = gql`
 export default function Index() {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GetItem, {
-   variables: { id }, 
+    variables: { id },
   });
 
-  if (loading) 
+  useEffect(() => {
+    console.log("data")
+    console.log(data)
+  }, [data])
+
+  if (loading)
     return <>Loading...</>
 
-  if (error) 
+  if (error)
     return <>Error Loading Data</>
 
   if (data) {
-    const handleOnDragStart = (e) => e.preventDefault() 
+    const handleOnDragStart = (e) => e.preventDefault()
     return (
       <div className='container item-container'>
-        <div className='columns'>
-          <div className='column'>
-            <img src={"https://damaged-goods.herokuapp.com" + data.item.front_image.formats.large.url} />
-          </div>
-          <div className='column'>
-            <h1 className='title'>{data.item.name}</h1>
-            <h2 className='title-2'>${data.item.cost}</h2>
-            <p>{data.item.description}</p>
-          </div>
-        </div>
+        {data.nodes[0].title}
+        <br />
+        {data.nodes[0].description}
       </div>)
-  } 
+  }
 }
