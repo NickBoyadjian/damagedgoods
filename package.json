@@ -16,6 +16,9 @@
     "@vx/gradient": "^0.0.198",
     "@vx/group": "^0.0.198",
     "@vx/voronoi": "^0.0.198",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-http": "^1.5.17",
     "axios": "^0.19.2",
     "bulma": "^0.9.0",
     "bulmaswatch": "^0.8.1",
@@ -35,6 +38,7 @@
     "redux": "^4.0.5",
     "resize-observer-polyfill": "^1.5.1",
     "seedrandom": "^3.0.5",
+    "shopify-buy": "^2.11.0",
     "simplify-js": "^1.2.4",
     "typescript": "^3.9.7"
   },

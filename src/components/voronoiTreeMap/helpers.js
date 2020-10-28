@@ -2,7 +2,7 @@ import { nest, range, select } from 'd3';
 
 export function getDataNested(data) {
   let freedom_nest = nest()
-    .key(d => d.item_type)
+    .key(d => d.productType)
     .key(d => d.id)
     .rollup(v => v.length)
     .entries(data);
@@ -31,7 +31,7 @@ export function appendImages(nodes, items, handleMouseOver, handleMouseLeave, ha
       `translate(${d.polyProps.bounds[0].map(d => d * -1)})`
     )
     .append('polygon')
-    .attr('points', d => d.polygon)
+    .attr('points', d => d.polygon);
 
   imageGroup
     .append('image')
@@ -55,16 +55,16 @@ export function appendImages(nodes, items, handleMouseOver, handleMouseLeave, ha
           .attr('width', width)
           .attr('height', height)
           .attr('visibility', 'visible')
-          .on('click', d => handleClick(d)) 
+          .on('click', d => handleClick(d))
           .on('mouseenter', _ => handleMouseOver(i))
           .on('mouseleave', _ => handleMouseLeave());
       }
-      image.src = `http://localhost:1337${items[i].front_image.formats.large.url}`
+      image.src = items[i].images.edges[0].node.originalSrc;
     })
     .attr('clip-path', d => `url(#${d.id}-clip)`)
     .attr("transform", d => `translate(${d.polyProps.bounds[0]})`)
     .attr("visibility", "visible")
-    .attr("href", (d, i) => `http://localhost:1337${items[i].front_image.formats.large.url}`)
+    .attr("href", (d, i) => items[i].images.edges[0].node.originalSrc)
 }
 
 

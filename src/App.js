@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -17,8 +17,6 @@ import './App.scss';
 function App() {
   // const dispatch = useDispatch();
   // const cart = useSelector(state => state.cart);
-
-
 
   return (
     <div className="App">
