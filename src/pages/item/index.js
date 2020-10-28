@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import './style.scss'
 
@@ -16,15 +15,13 @@ const GetItem = gql`
   }
 `;
 
-export default function Index() {
-  const { id } = useParams();
+export default function Index({ id, addVariantToCart }) {
   const { loading, error, data } = useQuery(GetItem, {
     variables: { id },
   });
 
   useEffect(() => {
-    console.log("data")
-    console.log(data)
+    console.log("props")
   }, [data])
 
   if (loading)
@@ -33,13 +30,13 @@ export default function Index() {
   if (error)
     return <>Error Loading Data</>
 
-  if (data) {
-    const handleOnDragStart = (e) => e.preventDefault()
-    return (
-      <div className='container item-container'>
-        {data.nodes[0].title}
-        <br />
-        {data.nodes[0].description}
-      </div>)
-  }
+  return (
+    <div className='container item-container'>
+      {data.nodes[0].title}
+      <br />
+      {data.nodes[0].description}
+
+      {data.nodes[0].id}
+
+    </div>)
 }

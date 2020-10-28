@@ -9,6 +9,7 @@ import {
   checkoutCustomerAssociate,
 } from '../../helpers/checkout';
 import Cart from '../../components/cart';
+import Item from '../../pages/item';
 import VoronoiTreeMap from '../../components/voronoiTreeMap';
 import './style.scss';
 
@@ -47,6 +48,7 @@ export default function Index() {
   const [showAccountVerificationMessage, setAccountVerificationMessage] = useState(false);
   const [checkout, setCheckout] = useState({ lineItems: { edges: [] } });
   const [customerAccessToken, setCustomerAccessToken] = useState(null);
+  const [item, setItem] = useState(null);
 
   const [createCheckoutMutation,
     {
@@ -162,10 +164,11 @@ export default function Index() {
   if (shopError)
     return <>Error fetching data</>
 
-  console.log(shopData)
   return (
     <>
-      <VoronoiTreeMap items={shopData.collectionByHandle.products.edges.map(obj => obj.node)} />
+      <VoronoiTreeMap
+        items={shopData.collectionByHandle.products.edges.map(obj => obj.node)}
+        setItem={setItem} />
       <div className="App__view-cart-wrapper">
         <button className="App__view-cart" onClick={() => setCartOpen(!isCartOpen)}>Cart</button>
       </div>
@@ -177,6 +180,15 @@ export default function Index() {
         handleCartClose={handleCartClose}
         customerAccessToken={customerAccessToken}
       />
+      {item ? (
+        <>
+          <Item id={item} addVariantToCart={addVariantToCart} />
+          <button onClick={() => addVariantToCart(item, 1)}>
+            Hello
+          </button>
+          {item}
+        </>)
+        : ""}
     </>
   )
 }

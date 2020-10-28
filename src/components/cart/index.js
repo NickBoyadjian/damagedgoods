@@ -30,7 +30,7 @@ function Cart(props) {
         </button>
       </header>
       <ul className="Cart__line-items">
-        {line_items}
+        {/* {line_items} */}
       </ul>
       <footer className="Cart__footer">
         <div className="Cart-info clearfix">

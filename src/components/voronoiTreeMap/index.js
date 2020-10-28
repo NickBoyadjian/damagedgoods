@@ -7,7 +7,7 @@ import useResizeObserver from '../../customHooks/useResizeObserver';
 import { getDataNested, appendImages } from './helpers';
 import './style.scss';
 
-export default function Index({ items }) {
+export default function Index({ items, setItem }) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
@@ -79,19 +79,20 @@ export default function Index({ items }) {
 
       const handleMouseLeave = () => voronoi.selectAll('image').attr('opacity', 1);
 
-      const handleClick = data => history.push(`/items/${data.data.key}`);
+      //const handleClick = data => history.push(`/items/${data.data.key}`);
+      const handleClick = data => setItem(data.data.key);
 
       appendImages(voronoi.selectAll('.node'), items, handleMouseOver, handleMouseLeave, handleClick);
     }
 
     mdo();
 
-  }, [svgRef, wrapperRef, dimensions, items, history])
+  }, [svgRef, wrapperRef, dimensions])
 
 
   return (
     <div className="wrapper" ref={wrapperRef}>
-      <svg ref={svgRef} height={500} />
+      <svg ref={svgRef} height={window.innerHeight * (3 / 4)} />
     </div>
   )
 }
